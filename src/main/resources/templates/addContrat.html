@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="template">
+
+<head>
+	<meta charset="utf-8" />
+	<title>NEW CONTRAT</title>
+
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<h5>SAVE</h5>
+		<form method="post" th:action="@{/saveContrat}" th:object="${contrat}" style="width: fit-content"
+			class="form-inline d-flex flex-column ">
+			<div class="d-flex">
+				<input th:field="*{title}" class="form-controller ml-1" placeholder="title">
+			</div>
+			<div class="d-flex mt-1">
+				<input th:field="*{date}" class="form-controller ml-1" type="date">
+			</div>
+			<div class="d-flex">
+				<input th:field="*{montant}" class="form-controller ml-1" placeholder="montant">
+			</div>
+			<div class="d-flex">
+				<input th:field="*{client_name}" class="form-controller ml-1" placeholder="client">
+			</div>
+			<button class="btn btn-success mt-1">SAVE</button>
+		</form>
+	</div>
+</body>
+
+</html>

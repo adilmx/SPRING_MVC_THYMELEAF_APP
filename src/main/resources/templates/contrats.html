@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="template">
+
+<body>
+	<div layout:fragment="content">
+		<div class="container">
+			<form class="form-group" method="get" th:action="${contrats}">
+				<div>
+					<label for="keyWord">Search </label>
+					<input type="text" name="keyWord" th:value=${keyWord}>
+					<input type="submit" class="btn btn-success" value="SEARCH">
+				</div>
+			</form>
+
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>TITLE</th>
+						<th>DATE</th>
+						<th>MONTANT</th>
+						<th>CLIENT</th>
+						<th>CLOTURE</th>
+						<th>ACTIONS</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="c:${listContrats}">
+						<td th:text="${c.id}"></td>
+						<td th:text="${c.title}"></td>
+						<td th:text="${c.date}"></td>
+						<td th:text="${c.montant}"></td>
+						<td th:text="${c.client_name}"></td>
+						<td th:text="${c.client_name}"></td>
+						<td th:text="${c.client_name}"></td>
+					</tr>
+				</tbody>
+			</table>
+			<ul class="nav nav-pills">
+				<li
+					th:each="i:${listContrats.totalPages != 0 ? #numbers.sequence(0,(listContrats.totalPages) - 1) : #numbers.sequence(0,0)}">
+					<a th:class="${i==listContrats.number ? 'btn btn-success ml-1' : 'btn btn-primary ml-1'}"
+						th:href="@{contrats(page=${i},keyWord=${keyWord})}"
+						th:text="${listContrats.totalPages != 0 ? i : 'no data found'}"></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+</body>
+
+</html>
