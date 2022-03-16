@@ -1,5 +1,7 @@
 package com.adilmx.spring_mvc_app.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -51,4 +53,21 @@ public class ContratRest {
 		return "addContrat";
 	}
 
+	@GetMapping("/deleteContrat")
+	public String delete(Model model, @RequestParam(name = "id") Long id,
+			@RequestParam(name = "keyWord", defaultValue = "") String keyWord) {
+		System.out.println("DELETE " + id);
+		contratRepo.deleteById(id);
+		return "redirect:/contrats?keyWord=" + keyWord;
+	}
+
+	@GetMapping("/cloture")
+	public String cloture(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
+			@RequestParam(name = "id") Long id, @RequestParam(name = "keyWord", defaultValue = "") String keyWord) {
+		System.out.println("cloture " + id);
+		Optional<Contrat> contrat = contratRepo.findById(id);
+		contrat.get().setCloture(!contrat.get().isCloture());
+		contratRepo.save(contrat.get());
+		return "redirect:/contrats?page=" + page + "&keyWord=" + keyWord;
+	}
 }

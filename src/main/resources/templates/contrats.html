@@ -33,8 +33,13 @@
 						<td th:text="${c.date}"></td>
 						<td th:text="${c.montant}"></td>
 						<td th:text="${c.client_name}"></td>
-						<td th:text="${c.client_name}"></td>
-						<td th:text="${c.client_name}"></td>
+						<td >
+							<a th:text="${c.cloture ? 'ON' : 'OFF'}" th:href="@{cloture(id=${c.id},page=${listContrats.number},keyWord=${keyWord})}" th:class="${c.cloture ? 'btn btn-success' : 'btn btn-danger'}"></a>
+						</td>
+						<td>
+							<a th:href="@{deleteContrat(id=${c.id},keyWord=${keyWord})}" class="btn btn-danger">DELETE</a>
+							<a th:href="@{editContrat(id=${c.id})}" class="btn btn-primary">EDIT</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>
