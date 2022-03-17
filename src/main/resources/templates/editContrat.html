@@ -10,9 +10,12 @@
 
 <body>
 	<div layout:fragment="content">
-		<h5 class="text-dark">SAVE</h5>
+		<h5 class="text-dark">UPDATE</h5>
 		<form method="post" th:action="@{/saveContrat}" th:object="${contrat}" style="width: fit-content"
 			class="">
+			<div class="form-group">
+				<input th:field="*{id}" class="form-control ml-1" placeholder="title" hidden>
+			</div>
 			<div class="form-group">
 				<input th:field="*{title}" class="form-control ml-1" placeholder="title">
 				<span th:errors="*{title}" class="text-danger"></span>
@@ -34,7 +37,7 @@
 				<input id="cloture" type="checkbox" th:checked="${contrat.cloture}" class=" ml-1" >
 				<span th:errors="*{cloture}" class="text-danger"></span>
 			</div>
-			<button class="btn btn-primary mt-1">SAVE</button>
+			<button class="btn btn-primary mt-1">UPDATE</button>
 		</form>
 	</div>
 </body>
