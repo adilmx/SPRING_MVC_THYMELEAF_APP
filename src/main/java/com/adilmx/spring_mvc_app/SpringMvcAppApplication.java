@@ -22,7 +22,7 @@ public class SpringMvcAppApplication {
 	CommandLineRunner runner(ContratRepo contratRepo) {
 		return args -> {
 			for (int i = 0; i < 20 ; i++) {
-				contratRepo.save(new Contrat(null,"c"+i,new Date(),i*2000,"cl"+i,getRandomBoolean()));
+				contratRepo.save(new Contrat(null,"c"+i,new Date(),10+i*2000,"cl"+i,getRandomBoolean()));
 			}
 		};
 	} 
