@@ -8,6 +8,9 @@ import com.adilmx.spring_mvc_app.entities.Role;
 import com.adilmx.spring_mvc_app.entities.User;
 import com.adilmx.spring_mvc_app.repository.RoleRepo;
 import com.adilmx.spring_mvc_app.repository.UserRepo;
+import com.adilmx.spring_mvc_app.service.ContratService;
+import com.adilmx.spring_mvc_app.service.RoleService;
+import com.adilmx.spring_mvc_app.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,17 +28,17 @@ public class SpringMvcAppApplication {
 	}
 	
 	@Bean
-	CommandLineRunner runner(ContratRepo contratRepo, UserRepo userRepo, RoleRepo roleRepo, PasswordEncoder passwordEncoder) {
+	CommandLineRunner runner(ContratService contratService, UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
 		return args -> {
 			for (int i = 0; i < 20 ; i++) {
-				contratRepo.save(new Contrat(null,"c"+i,new Date(),10+i*2000,"cl"+i,getRandomBoolean()));
+				contratService.save(new Contrat(null,"c"+i,new Date(),10+i*2000,"cl"+i,getRandomBoolean()));
 			}
-			Role role = roleRepo.save(new Role("ROLE_ADMIN"));
+			Role role = roleService.save(new Role("ROLE_ADMIN"));
 			User user = new User();
 			user.getAuthorities().add(role);
 			user.setUsername("root");
 			user.setPassword(passwordEncoder.encode("root"));
-			userRepo.save(user);
+			userService.save(user);
 		};
 	} 
 	public boolean getRandomBoolean() {
