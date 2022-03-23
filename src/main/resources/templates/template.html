@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 	<meta charset="utf-8" />
@@ -29,11 +30,24 @@
 						ACTIONS
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item" href="#">SEARCH</a>
+						<a class="dropdown-item" th:href="@{/contrats}">ALL CONTRACTS</a>
 						<a class="dropdown-item" th:href="@{/addContrat}">ADD</a>
 					</div>
 				</li>
 			</ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAuthLink" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<span sec:authorize="isAuthenticated()" sec:authentication="name" />
+						<span sec:authorize="isAnonymous()" th:text="${'Guest'}" />
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownAuthLink">
+                        <a sec:authorize="isAnonymous()" class="dropdown-item" th:href="@{login}">Login</a>
+                        <a sec:authorize="isAuthenticated()" class="dropdown-item" th:href="@{logout}">Logout</a>
+                    </div>
+                </li>
+            </ul>
 		</div>
 	</nav>
 	<section layout:fragment="content">
