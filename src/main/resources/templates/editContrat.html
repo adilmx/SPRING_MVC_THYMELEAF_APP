@@ -1,45 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="template">
+      layout:decorate="template">
 
 <head>
-	<meta charset="utf-8" />
-	<title>NEW CONTRAT</title>
+    <meta charset="utf-8"/>
+    <title>NEW CONTRAT</title>
 
 </head>
 
 <body>
-	<div layout:fragment="content">
-		<h5 class="text-dark">UPDATE</h5>
-		<form method="post" th:action="@{/saveContrat}" th:object="${contrat}" style="width: fit-content"
-			class="">
-			<div class="form-group">
-				<input th:field="*{id}" class="form-control ml-1" placeholder="title" hidden>
-			</div>
-			<div class="form-group">
-				<input th:field="*{title}" class="form-control ml-1" placeholder="title">
-				<span th:errors="*{title}" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<input th:field="*{date}" class="form-control ml-1" type="date">
-				<span th:errors="*{date}" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<input th:field="*{montant}" class="form-control ml-1" placeholder="montant">
-				<span th:errors="*{montant}" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<input th:field="*{client_name}" class="form-control ml-1" placeholder="client">
-				<span th:errors="*{client_name}" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-			<label for="cloture">Cloture </label>
-				<input id="cloture" type="checkbox" th:checked="${contrat.cloture}" class=" ml-1" >
-				<span th:errors="*{cloture}" class="text-danger"></span>
-			</div>
-			<button class="btn btn-primary mt-1">UPDATE</button>
-		</form>
-	</div>
+<div layout:fragment="content">
+    <div class="container mt-4">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">Edit the contract of <span style="text-transform: uppercase" th:text="${contrat.title}"/></div>
+                <div class="card-body">
+                    <h5 class="text-dark">UPDATE</h5>
+                    <form method="post" th:action="@{/saveContrat}" th:object="${contrat}" style="width: fit-content"
+                          class="">
+                        <div class="form-group">
+                            <input th:field="*{id}" class="form-control ml-1" placeholder="title" hidden>
+                        </div>
+                        <div class="form-group">
+                            <input th:field="*{title}" class="form-control ml-1" placeholder="title">
+                            <span th:errors="*{title}" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input th:field="*{date}" class="form-control ml-1" type="date">
+                            <span th:errors="*{date}" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input th:field="*{montant}" class="form-control ml-1" placeholder="montant">
+                            <span th:errors="*{montant}" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input th:field="*{client_name}" class="form-control ml-1" placeholder="client">
+                            <span th:errors="*{client_name}" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="cloture">Cloture </label>
+                            <input id="cloture" type="checkbox" th:checked="${contrat.cloture}" class=" ml-1">
+                            <span th:errors="*{cloture}" class="text-danger"></span>
+                        </div>
+                        <button class="btn btn-primary mt-1">UPDATE</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 </html>

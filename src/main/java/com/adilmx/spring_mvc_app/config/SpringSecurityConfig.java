@@ -52,7 +52,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         //authentication input is as a pop-up browser
         //http.httpBasic();
         //authentication inputs are in html form
-        http.formLogin();
+        http.formLogin().loginPage("/login");
 
         //authorize all requests to all users
         //http.authorizeRequests().anyRequest().authenticated();
@@ -61,6 +61,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers( "/addContrat/**", "/editContrat/**","/saveContrat/**","/deleteContrat/**").hasRole("ADMIN")
                 .antMatchers("/contrats/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/login/**","/webjars/**").permitAll()
                 //allow others without checking roles but the have to be authenticated
                 .anyRequest().authenticated();
 

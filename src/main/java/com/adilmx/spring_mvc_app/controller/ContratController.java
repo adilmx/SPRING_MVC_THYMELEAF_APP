@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.adilmx.spring_mvc_app.service.ContratService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,8 +27,11 @@ import net.bytebuddy.implementation.bind.MethodDelegationBinder.BindingResolver;
 @Controller
 public class ContratController {
 
-	@Autowired
-	ContratRepo contratRepo;
+	private ContratService contratService;
+
+	public ContratController(ContratService contratService) {
+		this.contratService = contratService;
+	}
 
 	@GetMapping("/index")
 	public String index() {
@@ -38,9 +42,9 @@ public class ContratController {
 	public String contrats(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
 			@RequestParam(name = "size", defaultValue = "5") int size,
 			@RequestParam(name = "keyWord", defaultValue = "") String keyWord) {
-		// List<Contrat> contrats = contratRepo.findAll();
-		// Page<Contrat> pageContrats = contratRepo.findAll(PageRequest.of(page, size));
-		Page<Contrat> pageContrats = contratRepo.findByTitleContains(keyWord, PageRequest.of(page, size));
+		// List<Contrat> contrats = contratService.findAll();
+		// Page<Contrat> pageContrats = contratService.findAll(PageRequest.of(page, size));
+		Page<Contrat> pageContrats = contratService.findByTitleContains(keyWord, page, size);
 		model.addAttribute("listContrats", pageContrats);
 		model.addAttribute("keyWord", keyWord);
 		return "contrats";
@@ -54,7 +58,7 @@ public class ContratController {
 	
 	@GetMapping("/editContrat")
 	public String editContrat(Model model, @RequestParam(name = "id") Long id) {
-		Optional<Contrat> contrat = contratRepo.findById(id);
+		Optional<Contrat> contrat = contratService.findById(id);
 		model.addAttribute("contrat", contrat.get());
 		return "editContrat";
 	}
@@ -68,7 +72,7 @@ public class ContratController {
 		 * e.getField().toUpperCase() + " : " + e.getDefaultMessage() + "]--\n"); });
 		 */
 		if (bindingResult.hasErrors()) return "addContrat";
-		Contrat contratSaved = contratRepo.save(contrat);
+		Contrat contratSaved = contratService.save(contrat);
 		return "redirect:/contrats";
 
 	}
@@ -76,16 +80,16 @@ public class ContratController {
 	@GetMapping("/deleteContrat")
 	public String delete(Model model, @RequestParam(name = "id") Long id,
 			@RequestParam(name = "keyWord", defaultValue = "") String keyWord) {
-		contratRepo.deleteById(id);
+		contratService.deleteById(id);
 		return "redirect:/contrats?keyWord=" + keyWord;
 	}
 
 	@GetMapping("/cloture")
 	public String cloture(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
 			@RequestParam(name = "id") Long id, @RequestParam(name = "keyWord", defaultValue = "") String keyWord) {
-		Optional<Contrat> contrat = contratRepo.findById(id);
+		Optional<Contrat> contrat = contratService.findById(id);
 		contrat.get().setCloture(!contrat.get().isCloture());
-		contratRepo.save(contrat.get());
+		contratService.save(contrat.get());
 		return "redirect:/contrats?page=" + page + "&keyWord=" + keyWord;
 	}
 }
