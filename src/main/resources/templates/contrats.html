@@ -9,7 +9,7 @@
 			<form class="form-group" method="get" th:action="${contrats}">
 				<div>
 					<label for="keyWord">Search </label>
-					<input type="text" name="keyWord" th:value=${keyWord}>
+					<input id="keyWord" type="text" name="keyWord" th:value="${keyWord}">
 					<input type="submit" class="btn btn-success" value="SEARCH">
 				</div>
 			</form>
@@ -31,7 +31,7 @@
 					<tr th:each="c:${listContrats}">
 						<td th:text="${c.id}"></td>
 						<td th:text="${c.title}"></td>
-						<td th:text="${c.date}"></td>
+						<td th:text="${c.dateCreation}"></td>
 						<td th:text="${c.montant}"></td>
 						<td th:text="${c.client_name}"></td>
 						<td sec:authorize="hasRole('ROLE_ADMIN')">
