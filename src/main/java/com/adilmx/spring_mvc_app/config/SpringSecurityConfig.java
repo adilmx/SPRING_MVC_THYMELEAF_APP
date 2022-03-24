@@ -42,7 +42,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery("SELECT USERS.username as principal ,ROLES.authority as role " +
                         "FROM USERS " +
                         "JOIN users_authorities ON USERS.ID=users_authorities.user_id "+
-                        "JOIN ROLES ON ROLES.ID=users_authorities.authorities "+
+                        "JOIN ROLES ON ROLES.ID=users_authorities.authorities_id "+
                         "WHERE USERS.username=?")
                 .passwordEncoder(passwordEncoder);
     }

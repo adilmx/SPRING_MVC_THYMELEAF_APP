@@ -2,21 +2,16 @@ spring:
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect: org.hibernate.dialect.Oracle10gDialect
     hibernate:
-      naming:
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
-        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
       ddl-auto: create
-    show-sql: 'true'
+      use-new-id-generator-mappings: false
+    database: oracle
   datasource:
-    username: root
-    password: ''
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/contrat-db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-    validationQuery: SELECT 1
-    testWhileIdle: 'true'
-  main:
-    allow-bean-definition-overriding: 'true'
+    username: admax
+    password: admax
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:xe
 server:
-  port: '8080'
+  port: '8081'
+
